@@ -6,8 +6,6 @@ in order to store complex ambiguities.
 Full reference and more details is here:
 https://web.archive.org/web/20190616123959/http://www.bramvandersanden.com/post/2014/06/shared-packed-parse-forest/
 """
-
-from random import randint
 from collections import deque
 from operator import attrgetter
 from importlib import import_module
@@ -19,6 +17,7 @@ from .tree import Tree
 
 from lark.visitors import Discard
 from lark.parse_tree_builder import AmbiguousIntermediateExpander
+import secrets
 
 
 class ForestNode:
@@ -874,8 +873,7 @@ class ForestToPyDotVisitor(ForestVisitor):
             else:
                 #### Try and be above the Python object ID range; probably impl. specific, but maybe this is okay.
                 child_graph_node_id = str(
-                    randint(
-                        100000000000000000000000000000, 123456789012345678901234567890
+                    secrets.SystemRandom().randint(100000000000000000000000000000, 123456789012345678901234567890
                     )
                 )
                 child_graph_node_style = "invis"
